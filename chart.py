@@ -29,9 +29,8 @@ df = pd.DataFrame(data)
 df["response_time"] = df["response_time"].clip(lower=1)
 
 # --- Create 512x512 Figure ---
-plt.figure(figsize=(8, 8))  # 8 inches × 64 dpi = 512 px
+plt.figure(figsize=(8, 8), dpi=64, frameon=False)
 
-# --- Violin Plot ---
 sns.violinplot(
     data=df,
     x="channel",
@@ -40,11 +39,11 @@ sns.violinplot(
     cut=0
 )
 
-# --- Titles and Labels ---
-plt.title("Customer Support Response Time Distribution by Channel", fontsize=16)
+plt.title("Customer Support Response Time Distribution by Channel")
 plt.xlabel("Support Channel")
 plt.ylabel("Response Time (minutes)")
 
-# --- Save Output ---
-plt.savefig("chart.png", dpi=64, bbox_inches=None, pad_inches=0)
+plt.gca().set_position([0, 0, 1, 1])  # remove all margins
+plt.savefig("chart.png", dpi=64, bbox_inches="tight", pad_inches=0)
 plt.close()
+
